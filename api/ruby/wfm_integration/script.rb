@@ -67,7 +67,7 @@ class ScriptOptionsParser
         options.queue_id = value.split(',')
       end
 
-      opts.on('--disable-defaults', '# Enable defaults (Default: false)') do |_|
+      opts.on('--disable-defaults', '# Disable defaults (Default: false)') do |_|
         options.enable_defaults = false
       end
 
