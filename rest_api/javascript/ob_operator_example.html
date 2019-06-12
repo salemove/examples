@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OmniBrowse Demo Site</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type='text/javascript'>
+    const omnibrowse_endpoint = 'https://omnibrowse.salemove.com';
+    const api_endpoint = 'https://api.salemove.com';
+
+    const displayCredentials= function(credentials){
+      apiTokenField = document.getElementById('apiToken');
+      siteIdField = document.getElementById('siteId');
+      appTokenField = document.getElementById('appToken');
+      operatorIdField = document.getElementById('operatorId');
+
+      apiTokenField.value = credentials.apiToken;
+      siteIdField.value = credentials.siteId;
+      appTokenField.value = credentials.appToken;
+      operatorIdField.value = credentials.operatorId;
+    }
+
+    const readCredential = function (key) {
+      return (localStorage.getItem(key)==undefined) ? '' : localStorage.getItem(key);
+    }
+
+    const readCredentials = function(){
+      return {
+       apiToken: readCredential('apiToken'),
+       appToken: readCredential('appToken'),
+       siteId: readCredential('siteId'),
+       operatorId: readCredential('operatorId')
+      }
+    }
+
+    const saveCredentials = function() {
+      apiToken = document.getElementById('apiToken').value;
+      operatorId = document.getElementById('operatorId').value;
+      siteId = document.getElementById('siteId').value;
+      appToken = document.getElementById('appToken').value;
+      localStorage.setItem('apiToken', apiToken);
+      localStorage.setItem('siteId', siteId);
+      localStorage.setItem('appToken', appToken);
+      localStorage.setItem('operatorId', operatorId);
+      showAlert();
+    }
+
+    const hideAlert = function(){
+      $('#alert').fadeOut('slow')
+    }
+    const showAlert = function(){
+      $('#alert').fadeIn('slow')
+      setTimeout(hideAlert, 3000);
+    }
+
+    const status = function (response) {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response)
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
+    }
+
+    const json = function(response) {
+      return response.json()
+    }
+
+    const pickOperator = function(callback) {
+      credentials = readCredentials();
+      callback({id: credentials.operatorId});
+    };
+
+    const acquireLaunchToken = function(operator, callback) {
+      const url = `${omnibrowse_endpoint}/auth/token`;
+      const appToken = readCredentials().appToken;
+      const data = new FormData();
+      data.append('app_token', appToken);
+      data.append('operator_id', operator.id);
+      const options = {
+        headers: {
+          'Accept': 'application/vnd.salemove.v1+json'
+        },
+        mode: 'cors',
+        body: data,
+        method: 'POST'
+      }
+      fetch(url, options)
+      .then(status)
+      .then(json)
+      .then(function(response){
+        callback(response);
+      });
+    };
+
+    const isVisitorOnlineByExternalId = function(id, callback){
+      const credentials = readCredentials();
+      const url = `${omnibrowse_endpoint}/sites/${credentials.siteId}/visitors?external_id=${id}`;
+
+      const options = {
+        headers: {
+          'Authorization': `Token ${credentials.apiToken}`,
+          'Accept': 'application/vnd.salemove.v1+json',
+          'Content-type': 'application/x-www-form-urlencoded'
+        },
+        mode: 'cors',
+        method: 'GET'
+      };
+
+      fetch(url, options)
+      .then(status)
+      .then(json)
+      .then(function(response){
+        callback({"isVisitorOnline": (response.length > 0)});
+      });
+    }
+
+    const launch = function(){
+      const credentials = readCredentials();
+      const operator = {id: credentials.operatorId};
+      acquireLaunchToken(operator, function(res){
+        const id = document.getElementById("visitorId").value;
+        const launchToken = res.launch_token;
+        isVisitorOnlineByExternalId(id, function(res){
+          if (res.isVisitorOnline){
+            const url = `${omnibrowse_endpoint}/auth/${launchToken}/${credentials.siteId}/external_id/${id}`;
+            document.getElementById('omnibrowse').src = url;
+          }
+          else{
+            const url = `${omnibrowse_endpoint}/auth/${launchToken}/${credentials.siteId}/visit_id/${id}`;
+            document.getElementById('omnibrowse').src = url;
+          }
+        });
+      });
+    }
+    </script>
+
+    <div class="alert alert-success alert-dismissible" role="alert" style="display:none" id="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <strong>Saved!</strong> The credentials have been saved
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-lg-4 col-xs-3">
+            <h3 class="panel-title">OmniBrowse by Glia</h3>
+          </div>
+          <div class="col-lg-8 col-xs-9">
+            <div class="form-inline pull-right">
+              <label for="visitorId">Enter an External ID or Visitor Code <a href="https://www.omnibrowse.com/demo_instructions" target="_blank">(?)</a>:</label>
+              <input type="text" class="form-control" id="visitorId">
+              <button class="btn btn-success" type="button" onclick="launch();">GO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe id="omnibrowse" class="embed-responsive-item" src="https://developer.glia.com/"></iframe>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row form-inline">
+          <div class="form-group pull-right">
+            <label for="siteId">Site ID:</label>
+            <input type="text" class="form-control" id="siteId">
+            <label for="siteId">Operator ID:</label>
+            <input type="text" class="form-control" id="operatorId">
+            <label for="apiToken">Manager Auth Key:</label>
+            <input type="text" class="form-control" id="apiToken">
+            <label for="appToken">App Key:</label>
+            <input type="text" class="form-control" id="appToken">
+            <button class="btn btn-primary" type="button" onclick="saveCredentials();">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">displayCredentials(readCredentials());</script>
+  </body>
+</html>
