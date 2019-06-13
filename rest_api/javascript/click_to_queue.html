@@ -1,0 +1,79 @@
+<div>
+  <div class='queue' queue_id='a6d8feb6-c300-4409-9e8a-c9842648c6ef'>
+    <button>TEAM A</button>
+  </div>
+  <div class='queue' queue_id='df94560d-af53-4836-a83d-1c405e291c0a'>
+    <button>TEAM B</button>
+  </div>
+</div>
+<script>
+  function findQueueElement(queueId) {
+    return document.querySelector("div.queue[queue_id='" + queueId + "']");
+  }
+  function findAllQueueElements() {
+    return document.querySelectorAll('div.queue');
+  }
+  function showCanQueue(queueElement, queueMedias) {
+    queueElement.querySelector('button').disabled = false;
+  }
+  function showCannotQueue(queueElement) {
+    queueElement.querySelector('button').disabled = true;
+  }
+  // Handle Queue state changes for a particular queue.
+  // Enable queuing and media buttons for available media if open, disable
+  // otherwise.
+  function onQueueState(queue) {
+    console.log(queue);
+    if (findQueueElement(queue.id) === null) {
+      // Queue not related to the current page, ignore
+    } else if (queue.state.status === queue.state.STATUSES.OPEN) {
+      showCanQueue(findQueueElement(queue.id), queue.state.medias);
+    } else {
+      showCannotQueue(findQueueElement(queue.id));
+    }
+  }
+  function showCannotQueueAnywhere() {
+    findAllQueueElements().forEach(showCannotQueue);
+  }
+  function findAllQueueMediaButtons() {
+    return document.querySelectorAll('div.queue > button')
+  }
+  function getMediaButtonQueueId(button) {
+    return button.parentElement.getAttribute('queue_id');
+  }
+  function getButtonMedium(mediaButton) {
+    // Later for handling other medias this method can be modified
+    return 'text';
+  }
+  function onFailedToQueue(error)  {
+    //logic to handle errors while trying to queue
+  }
+  // Bind clicks on queue buttons with SaleMove API
+  function listenForQueueButtonClicks(salemove, queues) {
+    findAllQueueMediaButtons().forEach(function(mediaButton) {
+      // Gather properties from UI element
+      var buttonQueueId = getMediaButtonQueueId(mediaButton);
+      var buttonMedium = getButtonMedium(mediaButton);
+      // Find queue ID by matching the queue name to button queue id
+      var queue = queues
+        .filter(function(queue) {   return queue.id === buttonQueueId; })
+        .map(function(queue) { return queue })[0];
+      if (queue === undefined) {
+        throw new Error('Queue button present, but Queue not defined in SaleMove. Queue id: ' + buttonQueueId);
+      }
+      mediaButton.addEventListener('click', function() {
+        salemove.visitorApp.triggerQueueMediaSelection(queue)
+      });
+    });
+  }
+  showCannotQueueAnywhere();
+  sm.getApi({version: 'v1'})
+  .then(function(salemove) {
+    salemove.getQueues()
+      .then(function(queues) {
+        listenForQueueButtonClicks(salemove, queues);
+        var queueIds = queues.map(function(queue) { return queue.id });
+        salemove.subscribeToQueueStateUpdates(queueIds, onQueueState);
+      });
+  });
+</script>
