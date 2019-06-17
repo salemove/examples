@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://api.beta.salemove.com/salemove_integration.js"></script>
+<script type="text/javascript" src="https://api.salemove.com/salemove_integration.js"></script>
  <div>
   <div class='instructions'></div>
   <button class='cancel'>Leave queue</button>
@@ -51,13 +51,13 @@
   }
   // Initial state: Cannot queue
   showCannotQueueAnywhere();
-  // Get SaleMove API and bind listeners.
+  // Get Glia API and bind listeners.
   sm.getApi({version: 'v1'})
-  .then(function(salemove) {
-    salemove.getQueues()
+  .then(function(api) {
+    api.getQueues()
       .then(function(queues) {
         var queueIds = queues.map(function(queue) { return queue.id });
-        salemove.subscribeToQueueStateUpdates(queueIds, onQueueState);
+        api.subscribeToQueueStateUpdates(queueIds, onQueueState);
       });
   });
 </script>

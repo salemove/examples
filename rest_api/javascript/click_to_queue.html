@@ -1,9 +1,16 @@
+<script type="text/javascript" src="https://api.salemove.com/salemove_integration.js"></script>
 <div>
   <div class='queue' queue_id='a6d8feb6-c300-4409-9e8a-c9842648c6ef'>
     <button>TEAM A</button>
   </div>
   <div class='queue' queue_id='df94560d-af53-4836-a83d-1c405e291c0a'>
     <button>TEAM B</button>
+  </div>
+  <div class='media' queue_id='a6d8feb6-c300-4409-9e8a-c9842648c6ef'>
+    <button>Chat team</button>
+  </div>
+  <div class='media' queue_id='df94560d-af53-4836-a83d-1c405e291c0a'>
+    <button>Rich media team</button>
   </div>
 </div>
 <script>
@@ -23,13 +30,14 @@
   // Enable queuing and media buttons for available media if open, disable
   // otherwise.
   function onQueueState(queue) {
-    console.log(queue);
-    if (findQueueElement(queue.id) === null) {
+    console.log("Queue state change ", queue);
+    var queueElement = findQueueElement(queue.id);
+    if (queueElement === null) {
       // Queue not related to the current page, ignore
     } else if (queue.state.status === queue.state.STATUSES.OPEN) {
-      showCanQueue(findQueueElement(queue.id), queue.state.medias);
+      showCanQueue(queueElement, queue.state.medias);
     } else {
-      showCannotQueue(findQueueElement(queue.id));
+      showCannotQueue(queueElement);
     }
   }
   function showCannotQueueAnywhere() {
@@ -48,32 +56,33 @@
   function onFailedToQueue(error)  {
     //logic to handle errors while trying to queue
   }
-  // Bind clicks on queue buttons with SaleMove API
-  function listenForQueueButtonClicks(salemove, queues) {
+  // Bind clicks on queue buttons with Glia API
+  function listenForQueueButtonClicks(api, queues) {
     findAllQueueMediaButtons().forEach(function(mediaButton) {
       // Gather properties from UI element
       var buttonQueueId = getMediaButtonQueueId(mediaButton);
       var buttonMedium = getButtonMedium(mediaButton);
       // Find queue ID by matching the queue name to button queue id
       var queue = queues
-        .filter(function(queue) {   return queue.id === buttonQueueId; })
+        .filter(function(queue) { return queue.id === buttonQueueId; })
         .map(function(queue) { return queue })[0];
       if (queue === undefined) {
-        throw new Error('Queue button present, but Queue not defined in SaleMove. Queue id: ' + buttonQueueId);
-      }
+        console.log('Queue button present, but Queue not defined in Glia. Queue id: ', buttonQueueId);
+      } else {
       mediaButton.addEventListener('click', function() {
-        salemove.visitorApp.triggerQueueMediaSelection(queue)
+        api.visitorApp.triggerQueueMediaSelection(queue)
       });
+    }
     });
   }
   showCannotQueueAnywhere();
   sm.getApi({version: 'v1'})
-  .then(function(salemove) {
-    salemove.getQueues()
+  .then(function(api) {
+    api.getQueues()
       .then(function(queues) {
-        listenForQueueButtonClicks(salemove, queues);
+        listenForQueueButtonClicks(api, queues);
         var queueIds = queues.map(function(queue) { return queue.id });
-        salemove.subscribeToQueueStateUpdates(queueIds, onQueueState);
+        api.subscribeToQueueStateUpdates(queueIds, onQueueState);
       });
   });
 </script>
