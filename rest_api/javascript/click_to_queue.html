@@ -76,6 +76,9 @@
     });
   }
   showCannotQueueAnywhere();
+
+  // Get Glia API and bind listeners. 
+  // Please refer to https://js-sdk-docs.salemove.com/class/Salemove.html
   sm.getApi({version: 'v1'})
   .then(function(api) {
     api.getQueues()
