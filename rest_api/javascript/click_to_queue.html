@@ -65,7 +65,6 @@
       // Find queue ID by matching the queue name to button queue id
       var queue = queues
         .filter(function(queue) { return queue.id === buttonQueueId; })
-        .map(function(queue) { return queue })[0];
       if (queue === undefined) {
         console.log('Queue button present, but Queue not defined in Glia. Queue id: ', buttonQueueId);
       } else {

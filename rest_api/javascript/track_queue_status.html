@@ -37,13 +37,14 @@
   // Enable queuing and media buttons for available media if open, disable
   // otherwise.
   function onQueueState(queue) {
-    console.log(queue);
-    if (findQueueElement(queue.name) === null) {
+    console.log("Queue state change ", queue);
+    var queueElement = findQueueElement(queue.name);
+    if (queueElement === null) {
       // Queue not related to the current page, ignore
     } else if (queue.state.status === queue.state.STATUSES.OPEN) {
-      showCanQueue(findQueueElement(queue.name), queue.state.medias);
+      showCanQueue(queueElement, queue.state.medias);
     } else {
-      showCannotQueue(findQueueElement(queue.name));
+      showCannotQueue(queueElement);
     }
   }
   function showCannotQueueAnywhere() {
