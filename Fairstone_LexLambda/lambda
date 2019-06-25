@@ -1,0 +1,125 @@
+
+const build_response_card = (title, options, image) => {
+    let card = {
+        "type": "suggestion",
+        "content": title,
+        "properties": {
+            "attachment": {
+                "type": "single_choice",
+                "options": options
+            }
+        }
+    }
+
+    if (image) {
+        card['properties']['attachment']['image_url'] = image;
+    }
+
+    return JSON.stringify(card)
+}
+
+const build_plain_text = (text) => {
+    let plainText = {
+        "type": "suggestion",
+        "content": text,
+    }
+
+    return JSON.stringify(plainText)
+}
+
+const response_to_aws_response = (response, slots, fill_slot) => {
+
+
+    return {
+        "dialogAction": {
+            "type": "ElicitSlot",
+            "message": {
+                "contentType": "CustomPayload",
+                "content": response
+            },
+            "intentName": "TimeframeIntent",
+            "slots": slots,
+            "slotToElicit": fill_slot,
+        }
+    };
+}
+
+exports.handler = async (event) => {
+    let response;
+
+    console.log("Event: ", event);
+    console.log("All slots: ", event.currentIntent.slots);
+    var fill_slot = "";
+    var slot_values = event.currentIntent.slots
+    console.log("Here be all slots and values ", slot_values)
+    console.log("Here be first slot value ", slot_values.country)
+
+    if (slot_values.country === null) {
+        const responseCard = build_response_card(
+            'What country would you like to visit?',
+            [{
+                    "text": "United States",
+                    "value": "United States"
+                },
+                {
+                    "text": "UK",
+                    "value": "UK"
+                }
+            ],
+            'https://cdn.pixabay.com/photo/2015/01/15/16/17/hands-600497_1280.jpg'
+        );
+        fill_slot = "country";
+        response = response_to_aws_response(responseCard, slot_values, fill_slot)
+        console.log("card", responseCard);
+        console.log("breakpoint", response);
+    } else if (slot_values.city === null) {
+        const responseCard = build_response_card(
+            'What city would you like to visit?',
+            [{
+                    "text": "New York",
+                    "value": "New York"
+                },
+                {
+                    "text": "London",
+                    "value": "London"
+                }
+            ],
+            'https://cdn.pixabay.com/photo/2015/01/15/16/17/hands-600497_1280.jpg'
+        );
+        fill_slot = "city";
+        response = response_to_aws_response(responseCard, slot_values, fill_slot)
+        console.log("card", responseCard);
+        console.log("breakpoint", response);
+    } else if (slot_values.event === null) {
+        const responseCard = build_response_card(
+            'What event would you like to attend?',
+            [{
+                    "text": "Baseball",
+                    "value": "Baseball"
+                },
+                {
+                    "text": "Cricket",
+                    "value": "Cricket"
+                }
+            ],
+            'https://cdn.pixabay.com/photo/2015/01/15/16/17/hands-600497_1280.jpg'
+        );
+        fill_slot = "event";
+        response = response_to_aws_response(responseCard, slot_values, fill_slot)
+        console.log("card", responseCard);
+        console.log("breakpoint", response);
+    } else {
+        let textResponse = build_plain_text('You would like to visit ' + slot_values.country + ' and city of ' + slot_values.city + ' and attend a ' + slot_values.event + ' event.');
+        response = {
+            "dialogAction": {
+                "type": "Close",
+                "fulfillmentState": "Fulfilled",
+                "message": {
+                    "contentType": "CustomPayload",
+                    "content": textResponse
+                }
+            }
+        }
+    }   
+    return response;
+};
