@@ -15,15 +15,21 @@ sm.getApi({version: 'v1'}).then(function(salemove) {
       }
     }
     var idleInterval = setInterval(timerIncrement, 1000);
-    $(window).mousemove(function(e) {
+    window.onmousemove = function(e) {
       idleTime = 0;
-    });
-    $(window).keypress(function(e) {
+    };
+    window.onmousedown = function(e) {
       idleTime = 0;
-    });
-    $(window).scroll(function(e) {
+    };
+    window.ontouchstart = function(e) {
       idleTime = 0;
-    });
+    };
+    window.onclick = function(e) {
+      idleTime = 0;
+    };
+    window.onkeypress = function(e) {
+      idleTime = 0;
+    };
     salemove.addEventListener(salemove.EVENTS.ENGAGEMENT_END, function() {
       clearInterval(idleInterval);
     });
