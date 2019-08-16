@@ -60,7 +60,8 @@ module StatisticsEndpoints
         # When filtering by queue_id those records with multiple queue_ids will be included
         # When grouped by queue_id it will include those same records twice with different queue_id
         # and it would look like filter didn't work, but it did. Rejecting record with incorrect queue_id.
-        @options.queue_id.nil? || obj['queue_id'].nil? || Array(@options.queue_id).include?(obj['queue_id'])
+        @options.queue_id.nil? || obj['queue_id'].nil? || Array(@options.queue_id).include?(obj['queue_id']) ||
+          (obj['destination_queue_id'] && Array(@options.queue_id).include?(obj['destination_queue_id']))
       end
     else
       raise(
