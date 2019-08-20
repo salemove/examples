@@ -5,7 +5,7 @@ module StatisticsEndpoints
       voice_filter: nil,
       chat_filter: nil
     }
-    stats_requeset(
+    stats_request(
       endpoint, requests[:online_durations][:fields], requests[:online_durations][:dimensions], engagement_type_filters
     )
   end
@@ -16,7 +16,7 @@ module StatisticsEndpoints
       voice_filter: voice_engagement_filter,
       chat_filter: chat_engagement_filter
     }
-    stats_requeset(endpoint, requests[:durations][:fields], requests[:durations][:dimensions], engagement_type_filters)
+    stats_request(endpoint, requests[:durations][:fields], requests[:durations][:dimensions], engagement_type_filters)
   end
 
   def wait_durations
@@ -25,7 +25,7 @@ module StatisticsEndpoints
       voice_filter: voice_engagement_filter2,
       chat_filter: chat_engagement_filter2
     }
-    stats_requeset(
+    stats_request(
       endpoint, requests[:wait_durations][:fields], requests[:wait_durations][:dimensions], engagement_type_filters
     )
   end
@@ -36,12 +36,12 @@ module StatisticsEndpoints
       voice_filter: voice_engagement_filter,
       chat_filter: chat_engagement_filter
     }
-    stats_requeset(
+    stats_request(
       endpoint, requests[:post_durations][:fields], requests[:post_durations][:dimensions], engagement_type_filters
     )
   end
 
-  def stats_requeset(endpoint, fields, dimensions, engagement_type_filters)
+  def stats_request(endpoint, fields, dimensions, engagement_type_filters)
     fields << site_id_present_filter # Filter that does nothing, but needed if none of the other filters apply
     fields << engagement_type_filters[:voice_filter] if voice?
     fields << engagement_type_filters[:chat_filter] if chat?
