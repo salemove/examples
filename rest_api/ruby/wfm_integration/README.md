@@ -6,8 +6,7 @@ This is an example of WFM integration. It shows how data from different Glia sta
 
 Clone or download repository and navigate to project folder
 ```bash
-gem install bundler
-bundle install
+bin/bundle install
 ```
 
 ## Usage
