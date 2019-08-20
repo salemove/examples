@@ -12,6 +12,7 @@ stage('Check WFM integration example') {
             gem install bundler -v '2.0.2'
             bin/bundle install
             bin/rubocop
+            bin/rspec
           '''.stripIndent())
         }
       }
