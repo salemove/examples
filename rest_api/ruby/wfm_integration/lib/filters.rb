@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Filters
   def site_id_filter
     filter_helper('site_id')

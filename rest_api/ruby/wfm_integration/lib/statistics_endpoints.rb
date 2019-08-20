@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StatisticsEndpoints
   def online_durations
     endpoint = "#{@options.api}/operators/stats/online_duration"

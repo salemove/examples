@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './stats_request.rb'
 
 class AgentQueueData < StatsRequest

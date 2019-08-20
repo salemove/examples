@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require_relative './filters.rb'
 require_relative './statistics_endpoints.rb'
 require_relative './api_endpoints.rb'
 
-class RequestError < StandardError; end;
+class RequestError < StandardError; end
 
 class StatsRequest
   include Filters

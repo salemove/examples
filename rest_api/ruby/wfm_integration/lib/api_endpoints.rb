@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiEndpoints
   def queues(site_ids = [])
     endpoint = "#{@options.api}/queues"
@@ -5,14 +7,14 @@ module ApiEndpoints
     if site_ids.empty?
       [] # Unable to query without site_ids
     else
-      recursive_request(endpoint, { site_ids: site_ids }, 'queues')
+      recursive_request(endpoint, {site_ids: site_ids}, 'queues')
     end
   end
 
   def operators(site_ids = [])
     endpoint = "#{@options.api}/operators"
 
-    recursive_request(endpoint, { site_ids: site_ids, include_disabled: true }, 'operators')
+    recursive_request(endpoint, {site_ids: site_ids, include_disabled: true}, 'operators')
   end
 
   def recursive_request(endpoint, query, data_root, data = [], page = 1)
