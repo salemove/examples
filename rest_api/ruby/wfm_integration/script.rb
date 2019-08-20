@@ -5,10 +5,10 @@ require 'optparse'
 require 'ostruct'
 require 'pry'
 
-require_relative './stats_request.rb'
-require_relative './agent_data.rb'
-require_relative './queue_data.rb'
-require_relative './agent_queue_data.rb'
+require_relative 'lib/stats_request.rb'
+require_relative 'lib/agent_data.rb'
+require_relative 'lib/queue_data.rb'
+require_relative 'lib/agent_queue_data.rb'
 
 class ScriptOptionsParser
   def self.parse(args)
