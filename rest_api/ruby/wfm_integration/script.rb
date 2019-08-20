@@ -14,7 +14,6 @@ class ScriptOptionsParser
   def self.parse(args)
     # Defaults
     options = OpenStruct.new
-    options.env = :dev
 
     options.api = 'https://api.salemove.com'
     options.token = nil
