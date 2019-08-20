@@ -36,7 +36,7 @@ class ScriptOptionsParser
     options.enable_defaults = true
     options.debug = false
 
-    opts = OptionParser.new do |opts|
+    OptionParser.new do |opts|
       opts.banner = 'Usage: ruby script.rb [options]'
 
       opts.on('--script=SCRIPT', %i[agent agent_queue queue], '# Script to run [agent, agent_queue, queue]') do |value|
@@ -78,9 +78,8 @@ class ScriptOptionsParser
       opts.on('--debug', '# Debug script by showing raw results from endpoints') do |_|
         options.debug = true
       end
-    end
+    end.parse!(args)
 
-    opts.parse!(args)
     options
   end
 end

@@ -35,11 +35,9 @@ module ApiEndpoints
       endpoint, headers: headers, query: query.merge(per_page: 1000, page: page)
     )
 
-    if raw_response.success?
-      JSON.parse(raw_response.body)
-    else
-      raise(RequestError.new, raw_response.to_h.merge(endpoint: endpoint).to_json)
-    end
+    raise(RequestError.new, raw_response.to_h.merge(endpoint: endpoint).to_json) unless raw_response.success?
+
+    JSON.parse(raw_response.body)
   end
 
   def headers
