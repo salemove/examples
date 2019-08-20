@@ -13,12 +13,12 @@ bundle install
 ## Usage
 
 ```bash
-ruby script.rb --script=agent --token=TOKEN
+bin/wfm_integration --script=agent --token=TOKEN
 ```
 
 For more information and other commands and parameters:
 ```bash
-ruby script.rb --help
+bin/wfm_integration --help
 ```
 
 Available parameters:
@@ -39,7 +39,7 @@ Available parameters:
 
 ### Queue data for all media types
 ```bash
-ruby script.rb --script=queue --token=TOKEN
+bin/wfm_integration --script=queue --token=TOKEN
 ```
 
 Output:
@@ -65,7 +65,7 @@ Output:
 
 ### Agent data for chat
 ```bash
-ruby script.rb --script=agent --type=chat --token=TOKEN
+bin/wfm_integration --script=agent --type=chat --token=TOKEN
 ```
 
 Output:
@@ -87,7 +87,7 @@ Output:
 ### Agent - Queue data for voice
 
 ```bash
-ruby script.rb --script=agent_queue --type=voice --token=TOKEN
+bin/wfm_integration --script=agent_queue --type=voice --token=TOKEN
 ```
 
 Output:

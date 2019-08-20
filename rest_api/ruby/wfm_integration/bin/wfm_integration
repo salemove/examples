@@ -1,14 +1,19 @@
-require 'bundler'
-Bundler.setup(:default)
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rubygems'
+require 'bundler/setup'
 
 require 'optparse'
 require 'ostruct'
 require 'pry'
 
-require_relative 'lib/stats_request.rb'
-require_relative 'lib/agent_data.rb'
-require_relative 'lib/queue_data.rb'
-require_relative 'lib/agent_queue_data.rb'
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'stats_request'
+require 'agent_data'
+require 'queue_data'
+require 'agent_queue_data'
 
 class ScriptOptionsParser
   def self.parse(args)
