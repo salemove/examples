@@ -9,7 +9,7 @@ stage('Check WFM integration example') {
       container('ruby') {
         dir('rest_api/ruby/wfm_integration') {
           sh('''\
-            gem install bundler -v '2.0.1'
+            gem install bundler -v '2.0.2'
             bin/bundle install
             bin/rubocop
           '''.stripIndent())
