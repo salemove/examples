@@ -5,9 +5,9 @@ require_relative './stats_request.rb'
 class QueueData < StatsRequest
   ABANDONED_OUTCOMES = %w[canceled disconnected].freeze
   FINISED_OUTCOMES = %w[finished].freeze
-  FALLBACK_OUTCOME = 'fallback'.freeze
+  FALLBACK_OUTCOME = 'fallback'
   DURATIONS_DEFAULT = {
-    talking_call_dur: 0,
+    talking_call_dur: 0
   }.freeze
   WAIT_DURATIONS_DEFAULT = {
     offd_direct_call_cnt: 0,
@@ -97,7 +97,6 @@ class QueueData < StatsRequest
     new_data = {}
 
     durations.group_by { |w_d| w_d['queue_id'] }.each do |queue_id, grouped_durations|
-
       new_data[queue_id] = {
         site_id: grouped_durations.first['site_id'],
         talking_call_dur: grouped_durations.sum { |g_d| g_d['total_duration_in_seconds'] }
@@ -161,13 +160,13 @@ class QueueData < StatsRequest
 
   def add_overflow_if_not_present(data_map, queue_id, w_durations, overflows_in_by_queue, overflows_out_by_queue)
     # A Queue might have only been used for overflow, with no tickets ending there
-    if !data_map[queue_id]
-      data_map[queue_id] = {
-        site_id: w_durations.first['site_id'],
-        overflow_in_call_cnt: (overflows_in_by_queue[queue_id] || []).sum { |w_d| w_d['count'] },
-        overflow_out_call_cnt: (overflows_out_by_queue[queue_id] || []).sum { |w_d| w_d['count'] }
-      }
-    end
+    return if data_map[queue_id]
+
+    data_map[queue_id] = {
+      site_id: w_durations.first['site_id'],
+      overflow_in_call_cnt: (overflows_in_by_queue[queue_id] || []).sum { |w_d| w_d['count'] },
+      overflow_out_call_cnt: (overflows_out_by_queue[queue_id] || []).sum { |w_d| w_d['count'] }
+    }
   end
 
   def post_durations_data_map
