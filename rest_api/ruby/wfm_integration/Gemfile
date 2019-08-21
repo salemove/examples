@@ -12,4 +12,6 @@ group :test, :development do
   gem 'rubocop', '~> 0.74.0', require: false
   gem 'rubocop-performance'
   gem 'rubocop-salemove'
+  gem 'vcr'
+  gem 'webmock'
 end

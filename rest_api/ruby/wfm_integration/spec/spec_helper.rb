@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.filter_sensitive_data('<AUTH>') do |interaction|
+    interaction.request.headers['Authorization'].first
+  end
+  c.before_record do |interaction, _|
+    # Ensures that the response body is recorded in a human-readable format,
+    # not in binary.
+    interaction.response.body.force_encoding(Encoding::UTF_8)
+  end
+end
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
