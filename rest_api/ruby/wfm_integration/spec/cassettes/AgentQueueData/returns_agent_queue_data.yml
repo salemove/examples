@@ -1,0 +1,199 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.salemove.com/engagements/stats/duration?dimensions%5B%5D=end_reason&dimensions%5B%5D=operator_id&dimensions%5B%5D=queue_id&dimensions%5B%5D=site_id&end_date=2019-08-21T19:00:00Z&filter%5Bfields%5D%5B0%5D%5Bdimension%5D=site_id&filter%5Bfields%5D%5B0%5D%5Btype%5D=in&filter%5Bfields%5D%5B0%5D%5Bvalues%5D%5B0%5D=7e8aea41-f985-473f-83e3-fba01631acdb&filter%5Bfields%5D%5B1%5D%5Btype%5D=not&filter%5Bfields%5D%5B2%5D%5Bfield%5D%5Bdimension%5D=site_id&filter%5Bfields%5D%5B2%5D%5Bfield%5D%5Btype%5D=selector&filter%5Bfields%5D%5B2%5D%5Bfield%5D%5Bvalue%5D=&filter%5Bfields%5D%5B2%5D%5Btype%5D=not&filter%5Btype%5D=and&granularity=all&query_type=group_by&start_date=2019-08-21T18:00:00Z
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/vnd.salemove.v1+json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1544'
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 21 Aug 2019 18:38:46 GMT
+      Server:
+      - nginx/1.16.0
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 2fd5d152db49e7b3ce1bd22b698f97ba.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - MAN50-C1
+      X-Amz-Cf-Id:
+      - zNXJnCSb1m-cJYzwnzbuFpvrMglVPG1H88JCu2rujiCXKTszf_2Muw==
+    body:
+      encoding: UTF-8
+      string: '[{"timestamp":"2019-08-21T18:00:00.000Z","seconds":9,"end_reason":"engagement_end","operator_id":"9a5e3745-c5ed-4818-ba4c-4d52a851027c","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":1,"average_duration_in_seconds":9.0,"queue_id":"26835c93-849a-4a36-8e0f-b40d1e2852c2","total_duration_in_seconds":9},{"timestamp":"2019-08-21T18:00:00.000Z","seconds":24,"end_reason":"engagement_end","operator_id":"9a5e3745-c5ed-4818-ba4c-4d52a851027c","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":3,"average_duration_in_seconds":8.0,"queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","total_duration_in_seconds":24},{"timestamp":"2019-08-21T18:00:00.000Z","seconds":127,"end_reason":"transfer","operator_id":"9a5e3745-c5ed-4818-ba4c-4d52a851027c","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":2,"average_duration_in_seconds":63.5,"queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","total_duration_in_seconds":127},{"timestamp":"2019-08-21T18:00:00.000Z","seconds":3,"end_reason":"engagement_end","operator_id":"e18c24e1-f753-4911-a695-801d2e5279dd","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":1,"average_duration_in_seconds":3.0,"queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","total_duration_in_seconds":3},{"timestamp":"2019-08-21T18:00:00.000Z","seconds":31,"end_reason":"transfer","operator_id":"e18c24e1-f753-4911-a695-801d2e5279dd","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":1,"average_duration_in_seconds":31.0,"queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","total_duration_in_seconds":31}]'
+    http_version: 
+  recorded_at: Wed, 21 Aug 2019 18:38:46 GMT
+- request:
+    method: post
+    uri: https://api.salemove.com/engagements/stats/post_engagement_duration?dimensions%5B%5D=operator_id&dimensions%5B%5D=queue_id&dimensions%5B%5D=site_id&end_date=2019-08-21T19:00:00Z&filter%5Bfields%5D%5B0%5D%5Bdimension%5D=site_id&filter%5Bfields%5D%5B0%5D%5Btype%5D=in&filter%5Bfields%5D%5B0%5D%5Bvalues%5D%5B0%5D=7e8aea41-f985-473f-83e3-fba01631acdb&filter%5Bfields%5D%5B1%5D%5Bdimension%5D=user_type&filter%5Bfields%5D%5B1%5D%5Btype%5D=selector&filter%5Bfields%5D%5B1%5D%5Bvalue%5D=operator&filter%5Bfields%5D%5B2%5D%5Btype%5D=not&filter%5Bfields%5D%5B3%5D%5Bfield%5D%5Bdimension%5D=site_id&filter%5Bfields%5D%5B3%5D%5Bfield%5D%5Btype%5D=selector&filter%5Bfields%5D%5B3%5D%5Bfield%5D%5Bvalue%5D=&filter%5Bfields%5D%5B3%5D%5Btype%5D=not&filter%5Btype%5D=and&granularity=all&query_type=group_by&start_date=2019-08-21T18:00:00Z
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/vnd.salemove.v1+json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '283'
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 21 Aug 2019 18:38:46 GMT
+      Server:
+      - nginx/1.16.0
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 5a98cd9dab95f4c98489126c95291a3c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - MAN50-C1
+      X-Amz-Cf-Id:
+      - 0bXBWgY93e7TKiwJcweZkOYt8-pt5BjqQJsPAeP-BuybkqK-dtPqQA==
+    body:
+      encoding: UTF-8
+      string: '[{"timestamp":"2019-08-21T18:00:00.000Z","seconds":17,"operator_id":"9a5e3745-c5ed-4818-ba4c-4d52a851027c","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","count":1,"average_duration_in_seconds":17.0,"queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","total_duration_in_seconds":17}]'
+    http_version: 
+  recorded_at: Wed, 21 Aug 2019 18:38:47 GMT
+- request:
+    method: get
+    uri: https://api.salemove.com/operators?include_disabled=true&page=1&per_page=1000&site_ids%5B%5D=7e8aea41-f985-473f-83e3-fba01631acdb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/vnd.salemove.v1+json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1454'
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 21 Aug 2019 18:38:47 GMT
+      Server:
+      - nginx/1.16.0
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 a7568a2794cec3928b9b2249985fc2d1.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - MAN50-C1
+      X-Amz-Cf-Id:
+      - umzHTE32aFVeg_x8qn7tCLpkbDCQgTIvwOucKi6Xs58uDeOY31v1pg==
+    body:
+      encoding: UTF-8
+      string: '{"last_page":"https://api.salemove.com/operators?page=1\u0026per_page=1000","operators":[{"href":"https://api.salemove.com/operators/e18c24e1-f753-4911-a695-801d2e5279dd","id":"e18c24e1-f753-4911-a695-801d2e5279dd","name":"WFM
+        Integration Example Manager","email":"wfm_integration_manager@glia.com","role":"super_manager","industry_id":6,"available":false,"enabled":true,"available_media_types":[],"max_engagement_count":null,"visible_in_operator_editor":true,"multi_engagement_default_availability":null,"reactive_enabled":true,"proactive_enabled":true,"observation_enabled":true,"engagement_notifications_enabled":false,"idle_time_before_auto_logout":null,"engagements":[],"engagement_requests":[],"picture":{"url":null},"phone":"5555555555","unavailability_reason":"offline"},{"href":"https://api.salemove.com/operators/9a5e3745-c5ed-4818-ba4c-4d52a851027c","id":"9a5e3745-c5ed-4818-ba4c-4d52a851027c","name":"WFM
+        Integration Example Operator","email":"wfm_integration_operator@glia.com","role":"operator","industry_id":6,"available":true,"enabled":true,"available_media_types":["video","audio","chat"],"max_engagement_count":null,"visible_in_operator_editor":true,"multi_engagement_default_availability":null,"reactive_enabled":true,"proactive_enabled":true,"observation_enabled":true,"engagement_notifications_enabled":false,"idle_time_before_auto_logout":null,"engagements":[],"engagement_requests":[],"picture":{"url":null},"phone":"5555555555"}]}'
+    http_version: 
+  recorded_at: Wed, 21 Aug 2019 18:38:47 GMT
+- request:
+    method: get
+    uri: https://api.salemove.com/queues?page=1&per_page=1000&site_ids%5B%5D=7e8aea41-f985-473f-83e3-fba01631acdb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/vnd.salemove.v1+json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1346'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ''
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Date:
+      - Wed, 21 Aug 2019 18:38:48 GMT
+      Server:
+      - nginx/1.16.0
+      Via:
+      - kong/0.11.2, 1.1 7fd482036f1d27e37908b1f68a4b92b5.cloudfront.net (CloudFront)
+      X-Kong-Proxy-Latency:
+      - '5'
+      X-Kong-Upstream-Latency:
+      - '4'
+      X-Request-Id:
+      - Fb0EE7mp9KDdO_8AMxwB
+      X-Cache:
+      - Miss from cloudfront
+      X-Amz-Cf-Pop:
+      - MAN50-C1
+      X-Amz-Cf-Id:
+      - Fch4bWjpzj-6Npm4a1jreUIEu5Qn5n4GH05ynXWOaUIqGqWVLhVmbQ==
+    body:
+      encoding: UTF-8
+      string: '{"queues":[{"available_properties":{"media":["text"]},"average_wait_time":0,"capacity":1,"capacity_policy":{"capacity":1,"type":"fixed"},"created_at":"2019-08-21T18:28:55.705086Z","description":null,"fallback_queue_id":"6130bc66-58c8-432f-bb18-439af0fbdbed","id":"26835c93-849a-4a36-8e0f-b40d1e2852c2","name":"Main
+        Queue","operator_ranking_enabled":false,"routing_policy":{"media":["text"],"team_ids":null},"scheduling_policy_id":null,"self_status":"opened","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","status":"opened","updated_at":"2019-08-21T18:38:04.711930Z","visitors_count":0,"welcome_message":"Welcome
+        to Main Queue!","when_unstaffed":"reject"},{"available_properties":{"media":["text","phone","audio"]},"average_wait_time":0,"capacity":5,"capacity_policy":{"capacity":5,"type":"fixed"},"created_at":"2019-08-21T17:23:19.436609Z","description":null,"fallback_queue_id":null,"id":"6130bc66-58c8-432f-bb18-439af0fbdbed","name":"Fallback
+        Queue","operator_ranking_enabled":false,"routing_policy":{"media":["text","phone","audio"],"team_ids":["d0303159-9ef6-4ef3-a483-599bea8af926"]},"scheduling_policy_id":null,"self_status":"opened","site_id":"7e8aea41-f985-473f-83e3-fba01631acdb","status":"opened","updated_at":"2019-08-21T18:33:00.163738Z","visitors_count":0,"welcome_message":"Welcome
+        to Fallback Queue!","when_unstaffed":"accept"}]}'
+    http_version: 
+  recorded_at: Wed, 21 Aug 2019 18:38:48 GMT
+recorded_with: VCR 5.0.0

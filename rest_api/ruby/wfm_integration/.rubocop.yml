@@ -4,9 +4,3 @@ inherit_gem:
   rubocop-salemove: config/default.yml
 
 require: rubocop-performance
-
-RSpec/ExampleLength:
-  Max: 40
-
-Metrics/BlockLength:
-  Max: 60

@@ -1,0 +1,8 @@
+require: rubocop-rspec
+inherit_from: ../.rubocop.yml
+
+RSpec/ExampleLength:
+  Max: 60
+
+Metrics/BlockLength:
+  Max: 80

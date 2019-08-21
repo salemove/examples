@@ -41,6 +41,7 @@ RSpec.describe AgentData, :vcr do
     opts.end_date = '2019-08-21T18:00:00Z'
     opts.site_id = ['7e8aea41-f985-473f-83e3-fba01631acdb']
     opts.token = ENV['TOKEN']
+    opts.enable_defaults = true
 
     described_class.new(opts)
   end
