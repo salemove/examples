@@ -9,6 +9,18 @@ module Filters
     filter_helper('queue_id')
   end
 
+  def queue_id_or_destination_queue_id_filter
+    return unless @options.queue_id
+
+    {
+      'type': 'or',
+      'fields': [
+        filter_helper('queue_id', option_name: 'queue_id'),
+        filter_helper('destination_queue_id', option_name: 'queue_id')
+      ]
+    }
+  end
+
   def operator_id_filter
     filter_helper('operator_id')
   end
@@ -85,8 +97,9 @@ module Filters
 
   private
 
-  def filter_helper(param)
-    return unless (value = @options.public_send(param))
+  def filter_helper(param, option_name: nil)
+    option_name ||= param
+    return unless (value = @options.public_send(option_name))
 
     {
       'type': 'in',
