@@ -1,12 +1,15 @@
 // Reference: https://developer.glia.com/docs/engagements/engagements#get-engagement
 // Reference: https://nodejs.org/en/download/
+// Reference: https://www.npmjs.com/package/wget-improved
 
 // Running the code snippet below allows to download multiple Glia audio recording urls per engagementId
 // PS. One engagement can have multiple audio recordings so all of them will be included in the results
 
 // JavaScript Node.js run-time environment needs to be set up first in order to run the code snippet
+// wget-improved package needs to be installed to retrieve file from URL
 // The required parameters that needs to be configured are the list of engagementIds and personal API token
 
+const wget = require('wget-improved');
 const request = require('request');
 const rp = require('request-promise');
 const numeral = require('numeral');
@@ -65,6 +68,16 @@ function getURLs() {
       console.log('====================================================================================================\n');
       s3Urls.map((s3Url) => {
         console.log(`${s3Url.url}\n`);
+        var sourceURL = `${s3Url.url}`;
+
+        // Regex to capture the file name from the audio recording URL
+        var outputFile = (`${s3Url.url}`).match(/[/]([^?]*)[?].*$/)[1].substring((`${s3Url.url}`).match(/[/]([^?]*)[?].*$/)[1].lastIndexOf('/') + 1);
+        console.log('');
+        console.log('Downloaded recording file is: ' + outputFile);
+        console.log('');
+
+        // Downloading the audio recording URL as an audio file to local storage
+        wget.download(sourceURL, outputFile);
       });
     });
 
