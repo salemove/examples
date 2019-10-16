@@ -49,11 +49,10 @@ module StatisticsEndpoints
     fields << engagement_type_filters[:chat_filter] if chat?
     fields = fields.compact
 
-    puts "# #{endpoint} \n"
+    opts = options(fields.compact, dimensions)
+    puts "Executing POST #{endpoint}\n#{JSON.pretty_generate(opts[:query])}\n"
 
-    raw_response = HTTParty.post(
-      endpoint, options(fields.compact, dimensions)
-    )
+    raw_response = HTTParty.post(endpoint, opts)
     if raw_response.success?
       JSON.parse(raw_response.body).select do |obj|
         # Records can have multiple queue_ids and queue_ids are persisted as an Array.

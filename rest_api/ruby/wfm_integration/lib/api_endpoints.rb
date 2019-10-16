@@ -30,10 +30,10 @@ module ApiEndpoints
   end
 
   def api_request(endpoint, query, page)
-    puts "# #{endpoint} \n"
-    raw_response = HTTParty.get(
-      endpoint, headers: headers, query: query.merge(per_page: 1000, page: page)
-    )
+    final_query = query.merge(per_page: 1000, page: page)
+    puts "Executing GET #{endpoint}\n#{JSON.pretty_generate(final_query)}\n"
+
+    raw_response = HTTParty.get(endpoint, headers: headers, query: final_query)
 
     raise(RequestError.new, raw_response.to_h.merge(endpoint: endpoint).to_json) unless raw_response.success?
 

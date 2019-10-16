@@ -102,11 +102,15 @@ begin
       raise RuntimeError.new, 'Unknown script, use --help for more information'
     end
 
-  if options.debug
-    pp instance.debug
-  else
-    pp instance.call.values
-  end
+  results =
+    if options.debug
+      instance.debug
+    else
+      instance.call.values
+    end
+
+  puts "\nResults:\n"
+  pp results
 rescue RequestError => e
   pp JSON.parse(e.message)
 rescue OptionParser::InvalidArgument => e
