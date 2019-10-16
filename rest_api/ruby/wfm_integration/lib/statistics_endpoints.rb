@@ -50,7 +50,12 @@ module StatisticsEndpoints
     fields = fields.compact
 
     opts = options(fields.compact, dimensions)
-    puts "Executing POST #{endpoint}\n#{JSON.pretty_generate(opts[:query])}\n"
+    puts "\nExecuting the equivalent of:\n" \
+      "curl --request POST '#{endpoint}' \\\n" \
+      "  --header 'Authorization: Token #{@options.token}' \\\n" \
+      "  --header 'Content-Type: application/json' \\\n" \
+      "  --header 'Accept: application/vnd.salemove.v1+json' \\\n" \
+      "  --data-binary '#{JSON.pretty_generate(opts[:query])}'"
 
     raw_response = HTTParty.post(endpoint, opts)
     if raw_response.success?

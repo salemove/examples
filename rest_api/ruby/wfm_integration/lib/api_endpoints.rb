@@ -31,7 +31,12 @@ module ApiEndpoints
 
   def api_request(endpoint, query, page)
     final_query = query.merge(per_page: 1000, page: page)
-    puts "Executing GET #{endpoint}\n#{JSON.pretty_generate(final_query)}\n"
+    puts "\nExecuting the equivalent of:\n" \
+      "curl --request GET \\\n" \
+      "  --header 'Authorization: Token #{@options.token}' \\\n" \
+      "  --header 'Content-Type: application/json' \\\n" \
+      "  --header 'Accept: application/vnd.salemove.v1+json' \\\n" \
+      "  '#{endpoint}/?#{HTTParty::HashConversions.to_params(final_query)}'"
 
     raw_response = HTTParty.get(endpoint, headers: headers, query: final_query)
 
