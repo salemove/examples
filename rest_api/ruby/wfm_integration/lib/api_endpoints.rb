@@ -36,7 +36,7 @@ module ApiEndpoints
       "  --header 'Authorization: Token #{@options.token}' \\\n" \
       "  --header 'Content-Type: application/json' \\\n" \
       "  --header 'Accept: application/vnd.salemove.v1+json' \\\n" \
-      "  '#{endpoint}/?#{HTTParty::HashConversions.to_params(final_query)}'"
+      "  '#{endpoint}?#{HTTParty::HashConversions.to_params(final_query)}'"
 
     raw_response = HTTParty.get(endpoint, headers: headers, query: final_query)
 
