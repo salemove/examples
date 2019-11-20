@@ -1,0 +1,13 @@
+{
+  "name": "compliance-custom-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test_index.js"
+  },
+  "author": "Carlos Paniagua",
+  "license": "MIT",
+  "dependencies" :	{   	
+  }
+}
