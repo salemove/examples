@@ -1,0 +1,12 @@
+{
+  "id": {engagement_id},
+  "visitorId": {visitor_id},
+  "visitor": {visitor_name},
+  "visitorEmail": {visitor_email},
+  "visitorPhoneNumber": {visitor_phone},
+  "customAttributes": {custom_fields},
+  "receivingOperatorId": {operator_id},
+  "receivingOperatorName": {operator_name},
+  "receivingOperatorEmail": {operator_email},
+  "newSiteId": {site_id}
+}

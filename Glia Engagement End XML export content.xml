@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<export>
+  <visitor_name>{visitor_name}</visitor_name>
+  <visitor_email>{visitor_email}</visitor_email>
+  <visitor_phone>{visitor_phone}</visitor_phone>
+  <visitor_last_name>{visitor_last_name}</visitor_last_name>
+  <custom_fields>{custom_fields}<custom_fields>
+  <visitor_device_type>{visitor_device_type}</visitor_device_type>
+  <visitor_browser>{visitor_browser}</visitor_browser>
+  <notes>{notes}</notes>
+  <site_name>{site_name}</site_name>
+  <engagement_id>{engagement_id}</engagement_id>
+  <engagement_duration>{engagement_duration}</engagement_duration>
+  <engagement_started_at>{engagement_started_at}</engagement_started_at>
+  <engagement_ended_at>{engagement_ended_at}</engagement_ended_at>
+  <engagement_type>{engagement_type}</engagement_type>
+  <initiator>{initiator}</initiator>
+  <appointment_scheduled_at>{appointment_scheduled_at}</appointment_scheduled_at>
+  <cobrowsing_used>{cobrowsing_used}</cobrowsing_used>
+  <video_used>{video_used}</video_used>
+  <audio_used>{audio_used}</audio_used>
+  <engagement_flagged>{engagement_flagged}</engagement_flagged>
+  <crm_forwarded>{crm_forwarded}</crm_forwarded>
+  <summary_forwarded>{summary_forwarded}</summary_forwarded>
+  <chat_transcript_plain_text>{chat_transcript_plain_text}</chat_transcript_plain_text>
+  <queue_wait_time>{queue_wait_time}</queue_wait_time>
+  <site_names>{site_names}</site_names>
+  <operators>{operators}</operators>
+  <chat_transcript>{chat_transcript}</chat_transcript>
+</export>
