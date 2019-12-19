@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="*|MC:SUBJECT|*" property="og:title">
+	<title>SaleMove Lead</title>
+	<style type="text/css">
+	   body {
+	    width: 100% !important;
+	    -webkit-text-size-adjust: none;
+	    margin: 0;
+	    padding: 0;
+	   }
+	   img {
+	    border: 0;
+	    outline:none;
+	    text-decoration:none;
+	   }
+	</style>
+</head>
+<body>
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin: 0 auto; background: white; table-layout: fixed;">
+		<tbody style="width: 100%;">
+			<tr style="height: 50px;">
+				<td colspan="1" style="text-align: left; padding-left: 30px;">
+					<a href="http://www.salemove.com" target="_blank"><img alt="SaleMove" height="31" src="https://assets.beta.salemove.com/assets/logo.png" style="width: 150px; height: 31px;" width="150"></a>
+				</td>
+			</tr>
+			<tr style="background: #5b91da; height: 50px;">
+				<td colspan="3" style="text-align: center; font-family: 'Helvetica Neue', Helvetica, sans-serif; color: rgb(230, 242, 250); font-size: 22px; letter-spacing: 0.5px; font-weight: 200; padding-top: 11px;">Congratulations on your Moves!</td>
+			</tr>
+			<tr style="background: #5b91da; height: 155px; text-align: center;">
+				<td colspan="3"><img alt="Congratulations on your Moves!" height="150" src="https://assets.beta.salemove.com/assets/email_cover2x.jpg" style="width: 150px; height: 150px;" width="150"></td>
+			</tr>
+			<tr style="background: #5b91da; height: 35px; text-align: center; color: rgb(222, 242, 255); font-weight: 200; font-style: italic; font-size: 13px; letter-spacing: 0.1px; font-family: 'Helvetica Neue', Helvetica, sans-serif;">
+				<td colspan="3" style="padding-bottom: 17px;">Here is a summary of your engagement</td>
+			</tr>
+		</tbody>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin: 0 auto; background: white; table-layout: fixed;">
+		<tbody style="width: 100%;">
+			<tr>
+				<td style="text-align: left; padding-top: 30px; color: rgb(158, 158, 158); padding-left: 30px; padding-right: 10px; vertical-align: top;" width="40%"></td>
+				<td style="vertical-align: top; padding-top: 30px; padding-left: 20px; font-family: 'Helvetica Neue', Helvetica, sans-serif; line-height: 1.5; color: rgb(167, 167, 167); font-size: 14px;" width="60%">
+					<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin: 0 auto; background: white; table-layout: fixed; padding-bottom: 15px;">
+						<tbody style="width: 100%;">
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="padding-bottom: 15px;"><b style="font-size: 18px; color: rgb(67, 67, 67); font-weight: 500;">Engagement Result</b></td>
+							</tr>
+							<tr>
+								<td><b>ID:</b>{engagement_id}</td>
+							</tr>
+							<tr>
+								<td><b>Site:</b>{site_name}</td>
+							</tr>
+							<tr>
+								<td><b>Start Date:</b>{engagement_started_at}</td>
+							</tr>
+							<tr>
+								<td><b>End Date:</b>{engagement_ended_at}</td>
+							</tr>
+							<tr>
+								<td><b>Duration:</b>{engagement_duration}</td>
+							</tr>
+							<tr>
+								<td><b>Started by:</b>{initiator}</td>
+							</tr>
+							<tr>
+								<td><b>CoBrowsing Used:</b>{cobrowsing_used}</td>
+							</tr>
+							<tr>
+								<td><b>Audio Used:</b>{audio_used}</td>
+							</tr>
+							<tr>
+								<td><b>Video Used:</b>{video_used}</td>
+							</tr>
+							<tr>
+								<td><b>CRM:</b>{crm_forwarded}</td>
+							</tr>
+							<tr>
+								<td><b>Appointment Date:</b>{appointment_scheduled_at}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin: 0 auto; background: white; table-layout: fixed; padding-bottom: 15px;">
+						<tbody style="width: 100%;">
+							<tr>
+								<td style="padding-bottom: 15px;"><b style="font-size: 18px; color: rgb(67, 67, 67); font-weight: 500;">Visitor Information</b></td>
+							</tr>
+							<tr>
+								<td><b>Name:</b>{visitor_name}</td>
+							</tr>
+							<tr>
+								<td><b>Email:</b>{visitor_email}</td>
+							</tr>
+							<tr>
+								<td><b>Phone:</b>{visitor_phone}</td>
+							</tr>
+							<tr>
+								<td><b>Device:</b>{visitor_device_type}</td>
+							</tr>
+							<tr>
+								<td><b>Browser:</b>{visitor_browser}</td>
+							</tr>
+							<tr>
+								<td><b>Notes:</b>{notes}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin: 0 auto; background: white; table-layout: fixed; padding-right: 20px;">
+						<tbody style="width: 100%;">
+							<tr>
+								<td style="padding-bottom: 15px;"><b style="font-size: 18px; color: rgb(67, 67, 67); font-weight: 500;">Text Chat Transcript</b></td>
+							</tr>
+							<tr>
+								<td>{chat_transcript}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

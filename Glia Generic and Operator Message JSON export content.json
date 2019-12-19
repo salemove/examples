@@ -1,0 +1,10 @@
+{
+  "siteName": {site_name},
+  "visitorName": {visitor_name},
+  "visitorEmail": {visitor_email},
+  "visitorPhone": {visitor_phone},
+  "customAttributes": {custom_fields},
+  "message": {message},
+  "messageId": {message_id},
+  "messageSentAt": {message_sent_at}
+}

@@ -1,0 +1,8 @@
+{
+  "site_id": {site_id},
+  "recording_url": {voicemail_url},
+  "duration": {recording_duration},
+  "incoming_phone_number": {incoming_phone_number},
+  "visitor_phone_number": {visitor_phone_number},
+  "voice_mailbox_id": {voice_mailbox_id}
+}
