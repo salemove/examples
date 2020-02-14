@@ -26,6 +26,7 @@ class ScriptOptionsParser
     time = Time.now.utc
     options.start_date = (time - 3600).iso8601
     options.end_date = time.iso8601
+    options.interval_minutes = 15
 
     options.script = nil
     options.engagement_type = :all
@@ -53,6 +54,10 @@ class ScriptOptionsParser
 
       opts.on('--end=END', '# End date UTC (iso8601)') do |value|
         options.end_date = Time.parse(value).utc.iso8601
+      end
+
+      opts.on('--interval-minutes=INTERVAL', '# Interval in minutes') do |value|
+        options.interval_minutes = value.to_i
       end
 
       opts.on('--type=TYPE', %i[chat voice all], '# Engagement type [chat, voice, all] (Default: all)') do |value|
@@ -84,31 +89,54 @@ class ScriptOptionsParser
   end
 end
 
+def get_instance(options)
+  case options.script
+  when :agent
+    AgentData.new(options)
+  when :queue
+    QueueData.new(options)
+  when :agent_queue
+    AgentQueueData.new(options)
+  when nil
+    raise RuntimeError.new, 'Script must specified, use --help for more information'
+  else
+    raise RuntimeError.new, 'Unknown script, use --help for more information'
+  end
+end
+
 begin
   options = ScriptOptionsParser.parse(ARGV)
 
-  instance =
-    case options.script
-    when :agent
-      AgentData.new(options)
-    when :queue
-      QueueData.new(options)
-    when :agent_queue
-      AgentQueueData.new(options)
-    when nil
-      raise RuntimeError.new, 'Script must specified, use --help for more information'
-    else
-      raise RuntimeError.new, 'Unknown script, use --help for more information'
-    end
+  if options.debug
+    puts get_instance(options).debug
+  else
+    results = Enumerator.new do |enum|
+      start_date = Time.parse(options.start_date)
+      end_date = Time.parse(options.end_date)
+      # puts start_date.inspect
+      # puts options.interval_minutes.inspect
+      while start_date + options.interval_minutes * 60 <= end_date
+        date_opts = {start_date: start_date, end_date: start_date + options.interval_minutes * 60}
+        enum.yield date_opts
+        start_date = date_opts[:end_date]
+      end
+    end.flat_map do |date_opts|
+      new_opts = options
+      new_opts.start_date = date_opts[:start_date].iso8601
+      new_opts.end_date = date_opts[:end_date].iso8601
+      vals = get_instance(new_opts).call.values
+      next if vals.empty?
 
-  results =
-    if options.debug
-      instance.debug
-    else
-      instance.call.values
-    end
+      vals.map do |val|
+        val.merge(
+          date: date_opts[:start_date].iso8601,
+          interval_minutes: options.interval_minutes
+        )
+      end
+    end.compact
+    puts JSON.dump(results)
+  end
 
-  puts JSON.dump(results)
 rescue RequestError => e
   pp JSON.parse(e.message)
 rescue OptionParser::InvalidArgument => e
