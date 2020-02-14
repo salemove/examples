@@ -86,7 +86,6 @@ end
 
 begin
   options = ScriptOptionsParser.parse(ARGV)
-  pp options
 
   instance =
     case options.script
@@ -109,8 +108,7 @@ begin
       instance.call.values
     end
 
-  puts "\nResults:\n"
-  pp results
+  puts JSON.dump(results)
 rescue RequestError => e
   pp JSON.parse(e.message)
 rescue OptionParser::InvalidArgument => e
