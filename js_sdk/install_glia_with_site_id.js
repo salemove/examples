@@ -12,7 +12,7 @@ var installGlia = function(siteId, callback) {
   document.body.append(scriptElement);
 };
 
-const siteId = '11111111-2222-3333-4444-555555555555'; // This can be requested from your Client Success Manager
+var siteId = '11111111-2222-3333-4444-555555555555'; // This can be requested from your Client Success Manager
 installGlia(siteId, function(){
   // Any post install configuration
 });
