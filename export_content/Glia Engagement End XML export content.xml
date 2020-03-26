@@ -15,7 +15,6 @@
   <engagement_ended_at>{engagement_ended_at}</engagement_ended_at>
   <engagement_type>{engagement_type}</engagement_type>
   <initiator>{initiator}</initiator>
-  <appointment_scheduled_at>{appointment_scheduled_at}</appointment_scheduled_at>
   <cobrowsing_used>{cobrowsing_used}</cobrowsing_used>
   <video_used>{video_used}</video_used>
   <audio_used>{audio_used}</audio_used>

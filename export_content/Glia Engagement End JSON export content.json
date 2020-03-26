@@ -14,7 +14,6 @@
   "engagementEndedAt": {engagement_ended_at},
   "engagementType": {engagement_type},
   "initiator": {initiator},
-  "appointmentScheduledAt": {appointment_scheduled_at},
   "cobrowsingUsed": {cobrowsing_used},
   "videoUsed": {video_used},
   "audioUsed": {audio_used},
