@@ -1,0 +1,9 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://client_name.app.salemove.eu">
+<md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" AuthnRequestsSigned="false" WantAssertionsSigned="true">
+<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://client_name.app.salemove.eu/saml/logout" ResponseLocation="https://client_name.app.salemove.eu/saml/logout" isDefault="true" index="0"/>
+<md:NameIDFormat>
+urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+</md:NameIDFormat>
+<md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://client_name.app.salemove.eu/saml/acs" isDefault="true" index="0"/>
+</md:SPSSODescriptor>
+</md:EntityDescriptor>
