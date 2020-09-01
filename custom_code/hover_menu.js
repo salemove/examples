@@ -143,7 +143,7 @@ var processMenuItem = function(menuItem, level, phoneMediaQueryList, right) {
 var processMenuItems = function() {
   var menuItems = document.querySelectorAll('.sky-mega-menu > *');
 
-  if (menuItems.length < 1) return;
+  if (menuItems.length < 1) return [];
   
   // Remember all menu items to remove event listeners after engagement ends
   var processedMenuItems = [];
