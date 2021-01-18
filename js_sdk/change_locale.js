@@ -7,3 +7,4 @@
 sm.getApi({ version: 'v1' }).then(function (api) {
     api.setLocale('en-US'); //Set the locale key here
   });
+  
