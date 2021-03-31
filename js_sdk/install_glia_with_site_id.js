@@ -1,5 +1,5 @@
 var installGlia = function(siteId, callback) {
-  var gliaIntegrationScriptUrl = 'https://api.salemove.com/salemove_integration.js?site_id=' + siteId;
+  var gliaIntegrationScriptUrl = 'https://api.glia.com/salemove_integration.js?site_id=' + siteId;
   var scriptElement = document.createElement('script');
 
   scriptElement.async = 1;
