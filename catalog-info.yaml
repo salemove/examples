@@ -1,0 +1,15 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: examples
+  annotations:
+    github.com/project-slug: salemove/examples
+    github.com/team-slug: salemove/client-engineering
+  tags:
+    - ruby
+    - node
+spec:
+  type: resource
+  lifecycle: production
+  owner: client-engineering
