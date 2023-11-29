@@ -14,17 +14,21 @@
 
     <script type='text/javascript'>
     const omnibrowse_endpoint = 'https://omnibrowse.salemove.com';
-    const api_endpoint = 'https://api.salemove.com';
+    const api_endpoint = 'https://api.glia.com';
 
     const displayCredentials= function(credentials){
-      apiTokenField = document.getElementById('apiToken');
+      userKeyIdField = document.getElementById('userKeyIdField');
+      userSecretField = document.getElementById('userSecretField');
       siteIdField = document.getElementById('siteId');
-      appTokenField = document.getElementById('appToken');
+      siteKeyIdField = document.getElementById('siteKeyIdField');
+      siteKeySecretField = document.getElementById('siteKeySecretField');
       operatorIdField = document.getElementById('operatorId');
 
-      apiTokenField.value = credentials.apiToken;
+      userKeyIdField.value = credentials.userKeyId;
+      userSecretField.value = credentials.userSecretField;
       siteIdField.value = credentials.siteId;
-      appTokenField.value = credentials.appToken;
+      siteKeyIdField.value = credentials.siteKeyIdField;
+      siteKeySecretField.value = credentials.siteKeySecretField;
       operatorIdField.value = credentials.operatorId;
     }
 
@@ -34,21 +38,28 @@
 
     const readCredentials = function(){
       return {
-       apiToken: readCredential('apiToken'),
-       appToken: readCredential('appToken'),
+       userKeyId: readCredential('userKeyId'),
+       userKeySecret: readCredential('userKeySecret'),
+       siteKeyId: readCredential('siteKeyId'),
+       siteKeySecret: readCredential('siteKeySecret'),
        siteId: readCredential('siteId'),
        operatorId: readCredential('operatorId')
       }
     }
 
     const saveCredentials = function() {
-      apiToken = document.getElementById('apiToken').value;
+      userKeyId = document.getElementById('userKeyId').value;
+      userKeySecret = document.getElementById('userKeySecret').value;
       operatorId = document.getElementById('operatorId').value;
       siteId = document.getElementById('siteId').value;
-      appToken = document.getElementById('appToken').value;
-      localStorage.setItem('apiToken', apiToken);
+      siteKeyId = document.getElementById('siteKeyId').value;
+      siteKeySecret = document.getElementById('siteKeySecret').value;
+
+      localStorage.setItem('siteKeyId', siteKeyId);
+      localStorage.setItem('siteKeySecret', siteKeySecret);
       localStorage.setItem('siteId', siteId);
-      localStorage.setItem('appToken', appToken);
+      localStorage.setItem('userKeyId', userKeyId);
+      localStorage.setItem('userKeySecret', userKeySecret);
       localStorage.setItem('operatorId', operatorId);
       showAlert();
     }
@@ -78,15 +89,32 @@
       callback({id: credentials.operatorId});
     };
 
-    const acquireLaunchToken = function(operator, callback) {
+    const createSiteBearerToken = async function (id, secret){
+        const response = await fetch('https://api.glia.com/sites/tokens', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/vnd.salemove.v1+json',
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                api_key_id: id, 
+                api_key_secret: secret
+            })
+        });
+        const resJson = await response.json()
+        return resJson.access_token
+    }
+
+    const acquireLaunchToken = async function (operator, callback) {
       const url = `${omnibrowse_endpoint}/auth/token`;
-      const appToken = readCredentials().appToken;
+      const credentials = readCredentials();
+      const bearerToken = await createSiteBearerToken(credentials.siteKeyId, credentials.siteKeySecret);
       const data = new FormData();
-      data.append('app_token', appToken);
       data.append('operator_id', operator.id);
       const options = {
         headers: {
-          'Accept': 'application/vnd.salemove.v1+json'
+          'Accept': 'application/vnd.salemove.v1+json',
+          'Authorization': `Bearer ${bearerToken}`
         },
         mode: 'cors',
         body: data,
@@ -100,13 +128,29 @@
       });
     };
 
-    const isVisitorOnlineByExternalId = function(id, callback){
+    const createUserBearerToken = async function (id, secret){
+        const response = await fetch('https://api.glia.com/operator_authentication/tokens', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/vnd.salemove.v1+json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                api_key_id: id, 
+                api_key_secret: secret
+            })
+        });
+        const resJson = await response.json()
+        return resJson.token
+    }
+
+    const isVisitorOnlineByExternalId = async function(id, callback){
       const credentials = readCredentials();
       const url = `${omnibrowse_endpoint}/sites/${credentials.siteId}/visitors?external_id=${id}`;
-
+      const bearerToken = await createUserBearerToken(credentials.userKeyId, credentials.userKeySecret);
       const options = {
         headers: {
-          'Authorization': `Token ${credentials.apiToken}`,
+          'Authorization': `Bearer ${bearerToken}`,
           'Accept': 'application/vnd.salemove.v1+json',
           'Content-type': 'application/x-www-form-urlencoded'
         },
@@ -122,7 +166,7 @@
       });
     }
 
-    const launch = function(){
+    const launch = async function(){
       const credentials = readCredentials();
       const operator = {id: credentials.operatorId};
       acquireLaunchToken(operator, function(res){
@@ -172,12 +216,16 @@
           <div class="form-group pull-right">
             <label for="siteId">Site ID:</label>
             <input type="text" class="form-control" id="siteId">
-            <label for="siteId">Operator ID:</label>
+            <label for="operatorId">Operator ID:</label>
             <input type="text" class="form-control" id="operatorId">
-            <label for="apiToken">Manager Auth Key:</label>
-            <input type="text" class="form-control" id="apiToken">
-            <label for="appToken">App Key:</label>
-            <input type="text" class="form-control" id="appToken">
+            <label for="userKeyId">User Key Id:</label>
+            <input type="text" class="form-control" id="userKeyId">
+            <label for="userKeySecret">User Key Secret:</label>
+            <input type="text" class="form-control" id="userKeySecret">
+            <label for="siteKeyId">Site Key ID:</label>
+            <input type="text" class="form-control" id="siteKeyId">
+            <label for="siteKeySecret">Site Key Secret:</label>
+            <input type="text" class="form-control" id="siteKeySecret">
             <button class="btn btn-primary" type="button" onclick="saveCredentials();">SAVE</button>
           </div>
         </div>
