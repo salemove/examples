@@ -3,7 +3,7 @@
 stage('Check WFM integration example') {
   withResultReporting(slackChannel: '#tm-cerebro') {
     inPod(containers: [
-      interactiveContainer(name: 'ruby', image: 'ruby:2.6.3')
+      interactiveContainer(name: 'ruby', image: 'public.ecr.aws/docker/library/ruby:2.6.7')
     ]) {
       checkout(scm)
       container('ruby') {
